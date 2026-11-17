@@ -3,248 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendar Cita - Macropay</title>
-    <style>
-        :root {
-            --macropay-blue: #0046BE; /* Azul oficial de MACRO */
-            --macropay-yellow: #FFCC00; /* Amarillo oficial de PAY */
-            --whatsapp: #25D366;
-            --whatsapp-dark: #1ebe57;
-            --email: #212529;
-            --bg: #f8f9fa;
-            --card: #ffffff;
-            --text: #212529;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            background: var(--card);
-            width: 100%;
-            max-width: 480px;
-            padding: 30px 25px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            border-top: 5px solid var(--macropay-blue);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .header h1 {
-            font-size: 1.8rem;
-            margin-bottom: 5px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-        }
-
-        .text-macro {
-            color: var(--macropay-blue);
-        }
-
-        .text-pay {
-            color: #d9ab00; /* Tono de amarillo con buen contraste para lectura */
-            background-color: #212529; /* Fondo oscuro opcional para resaltar el amarillo si es necesario, o usa texto directo */
-            padding: 0 4px;
-            border-radius: 4px;
-        }
-
-        .header p {
-            color: #6c757d;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            font-size: 0.85rem;
-            margin-bottom: 6px;
-            color: #495057;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1.5px solid #ced4da;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.2s;
-            background-color: #f8f9fa;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--macropay-blue);
-            background-color: #ffffff;
-        }
-
-        .row {
-            display: flex;
-            gap: 12px;
-        }
-
-        .row .form-group {
-            flex: 1;
-        }
-
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 22px;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            transition: transform 0.1s, opacity 0.2s;
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        .btn-whatsapp {
-            background-color: var(--whatsapp);
-            color: white;
-        }
-
-        .btn-whatsapp:hover {
-            background-color: var(--whatsapp-dark);
-        }
-
-        .btn-email {
-            background-color: var(--email);
-            color: white;
-        }
-
-        .btn-email:hover {
-            opacity: 0.9;
-        }
-
-        @media (max-width: 400px) {
-            .row {
-                flex-direction: column;
-                gap: 0;
+    <title>Agenda de Citas - Macropay</title>
+    <!-- Tailwind CSS para un diseño moderno, responsivo y con los colores oficiales -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        macroBlue: '#003366',    /* Azul oficial institucional */
+                        macroYellow: '#FFD700',  /* Amarillo oficial institucional */
+                        macroDarkYellow: '#CCA100'
+                    }
+                }
             }
         }
-    </style>
+    </script>
 </head>
-<body>
+<body class="bg-gray-100 min-h-screen flex flex-col justify-between">
 
-<div class="container">
-    <div class="header">
-        <h1><span class="text-macro">MACRO</span><span class="text-pay">PAY</span></h1>
-        <p>Agenda tu cita o servicio en sucursal</p>
-    </div>
-
-    <!-- Envío de correos configurado al correo de Martha -->
-    <form id="citaForm" action="https://formsubmit.co/martha.toxqui@macropay.mx" method="POST">
-        <!-- Configuraciones ocultas para FormSubmit -->
-        <input type="hidden" name="_subject" value="Nueva Cita Web - Macropay">
-        <input type="hidden" name="_captcha" value="false">
-
-        <div class="form-group">
-            <label for="sucursal">Selecciona la Sucursal *</label>
-            <select id="sucursal" name="Sucursal" required>
-                <option value="" disabled selected>Elige una sucursal...</option>
-                <option value="Mina">Mina</option>
-                <option value="Trujano">Trujano</option>
-                <option value="Macroplaza">Macroplaza</option>
-                <option value="Aldama">Aldama</option>
-                <option value="Tlacolula">Tlacolula</option>
-                <option value="Tlacolula Portales">Tlacolula Portales</option>
-                <option value="Amapolas">Amapolas</option>
-                <option value="Victoria">Victoria</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="nombre">Nombre completo *</label>
-            <input type="text" id="nombre" name="Nombre" placeholder="Ej. Ana Pérez" required>
-        </div>
-
-        <div class="form-group">
-            <label for="telefono">Teléfono de contacto *</label>
-            <input type="tel" id="telefono" name="Telefono" placeholder="Ej. 951 123 4567" required>
-        </div>
-
-        <div class="form-group">
-            <label for="servicio">Trámite o Motivo de la Cita *</label>
-            <select id="servicio" name="Servicio" required>
-                <option value="" disabled selected>Selecciona una opción...</option>
-                <option value="Compra de equipo / Celulares">Compra de equipo / Celulares</option>
-                <option value="Crédito Macropay">Solicitud o pago de Crédito</option>
-                <option value="Soporte / Garantías">Soporte técnico o Garantías</option>
-                <option value="Otro servicio">Otro trámite</option>
-            </select>
-        </div>
-
-        <div class="row">
-            <div class="form-group">
-                <label for="fecha">Fecha de cita *</label>
-                <input type="date" id="fecha" name="Fecha" required>
+    <!-- Header -->
+    <header class="bg-macroBlue text-white shadow-md">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <!-- Simulación de Logo corporativo -->
+                <span class="bg-macroYellow text-macroBlue font-black text-2xl px-3 py-1 rounded-lg uppercase">MacroPay</span>
+                <span class="text-xl font-bold">Agenda de Citas</span>
             </div>
-            <div class="form-group">
-                <label for="hora">Horario *</label>
-                <select id="hora" name="Horario" required>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="02:00 PM">02:00 PM</option>
-                    <option value="04:00 PM">04:00 PM</option>
-                    <option value="06:00 PM">06:00 PM</option>
-                </select>
+            <p class="text-sm text-macroYellow mt-2 sm:mt-0 font-medium" id="fecha-actual"></p>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-4xl mx-auto px-4 py-8 w-full flex-grow">
+        
+        <!-- Grid de Secciones -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Formulario de Registro -->
+            <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-macroYellow">
+                <h2 class="text-xl font-bold text-macroBlue mb-4 flex items-center gap-2">
+                    📅 Agendar Nueva Cita
+                </h2>
+
+                <!-- NOTA: Reemplaza 'tu-correo@tu-dominio.com' o usa tu endpoint de Formspree -->
+                <form id="citaForm" action="https://formspree.io/f/tu-id-de-formulario" method="POST" class="space-y-4">
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700">Nombre del Cliente:</label>
+                        <input type="text" name="nombre" required class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-macroBlue outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700">Teléfono de Contacto:</label>
+                        <input type="tel" name="telefono" required class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-macroBlue outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700">Tienda / Sucursal:</label>
+                        <select name="tienda" id="tiendaSelect" required class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-macroBlue outline-none bg-white">
+                            <option value="">Selecciona una tienda</option>
+                            <option value="Trujano">Trujano</option>
+                            <option value="Macroplaza">Macroplaza</option>
+                            <option value="Mina">Mina</option>
+                            <option value="Victoria">Victoria</option>
+                            <option value="Aldama">Aldama</option>
+                            <option value="Tlacolula">Tlacolula</option>
+                            <option value="Tlacolula Portales">Tlacolula Portales</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700">Asunto:</label>
+                        <select name="asunto" required class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-macroBlue outline-none bg-white">
+                            <option value="">Selecciona el trámite</option>
+                            <option value="Credito de moto">Crédito de moto</option>
+                            <option value="Credito de celular">Crédito de celular</option>
+                            <option value="Pago semanal">Pago semanal</option>
+                            <option value="Entrega de enganche">Entrega de enganche</option>
+                            <option value="Compra de electrodomestico">Compra de electrodoméstico</option>
+                            <option value="Otros">Otros</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700">Fecha de la Cita:</label>
+                        <input type="date" name="fecha" id="fechaCita" required class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-macroBlue outline-none">
+                    </div>
+
+                    <button type="submit" class="w-full bg-macroYellow hover:bg-macroDarkYellow text-macroBlue font-bold py-3 px-4 rounded-lg transition duration-200 shadow">
+                        Confirmar y Enviar Cita
+                    </button>
+                </form>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="detalles">Comentarios adicionales (Opcional)</label>
-            <textarea id="detalles" name="Detalles" rows="2" placeholder="Modelo de teléfono o detalles..."></textarea>
-        </div>
+            <!-- Panel de Resultados / Conteo Diario por Tienda -->
+            <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-macroBlue flex flex-col justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-macroBlue mb-4 flex items-center justify-between">
+                        📊 Resultados de Agendados Hoy
+                        <button onclick="reiniciarConteoDiario()" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 rounded transition">Reiniciar Día</button>
+                    </h2>
+                    <p class="text-xs text-gray-500 mb-4">Conteo de citas registradas para la jornada actual (se actualiza automáticamente).</p>
 
-        <div class="btn-group">
-            <button type="button" class="btn-whatsapp" onclick="enviarWhatsApp()">
-                📲 Agendar por WhatsApp
-            </button>
-            <button type="submit" class="btn-email">
-                ✉️ Enviar por Correo Electrónico
-            </button>
-        </div>
-    </form>
-</div>
+                    <div id="conteo-tiendas" class="space-y-3">
+                        <!-- Se llena dinámicamente mediante JavaScript -->
+                    </div>
+                </div>
 
-<script>
-    // Bloquear fechas pasadas en el calendario
-    const hoy = new Date().toISOString().split('T')[0];
-    document.getElementById('fecha').setAttribute('min', hoy
+                <div class="mt-6 pt-4 border-t border-gray-200 text-center">
+                    <p class="text-sm font-semibold text-gray-700">Total general de citas hoy:</p>
+                    <span id="total-citas" class="text-3xl font-black text-macroBlue">0</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-macroBlue text-white text-center py-4 mt-8 text-sm">
+        <p>Macropay - Sistema de Gestión de Citas &copy; 2026</p>
+    </footer>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Mostrar fecha actual en el header
+        const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('fecha-actual').innerText = new Date().toLocaleDateString('es-ES', opcionesFecha);
+
+        // Establecer la fecha actual por defecto en el input de fecha
+        const hoyIso = new Date().toISOString().split('T')[0];
+        document.getElementById('fechaCita').value = hoyIso;
+
+        // Listado oficial de sucursales
+        const tiendas = ["Trujano", "Macroplaza", "Mina", "Victoria", "Aldama", "Tlacolula", "Tlacolula Portales"];
+
+        // Manejo del almacenamiento local para los conteos diarios
+        function obtenerDatosGuardados() {
+            let datos = JSON.parse(localStorage.getItem('macropay_citas_dia')) || {};
+            const fechaAlmacenada = localStorage.getItem('macropay_fecha_actual');
+            
+            // Si cambió el día, reiniciamos el contador automáticamente (Actualización diaria)
+            if (fechaAlmacenada !== hoyIso) {
+                datos = {};
+                tiendas.forEach(t => datos[t] = 0);
+                localStorage.setItem('macropay_fecha_actual', hoyIso);
+                localStorage.setItem('macropay_citas_dia', JSON.stringify(datos));
+            }
+            return datos;
+        }
+
+        function renderizarConteo() {
+            const datos = obtenerDatosGuardados();
+            const contenedor = document.getElementById('conteo-tiendas');
+            contenedor.innerHTML = '';
+            let totalGeneral = 0;
+
+            tiendas.forEach(tienda => {
+                const cantidad = datos[tienda] || 0;
+                totalGeneral += cantidad;
+
+                const fila = document.createElement('div');
+                fila.className = "flex justify-between items-center bg-gray-50 px-3 py-2 rounded-lg border";
+                fila.innerHTML = `
+                    <span class="font-medium text-gray-800">${tienda}</span>
+                    <span class="bg-macroBlue text-white text-sm font-bold px-3 py-1 rounded-full">${cantidad}</span>
+                `;
+                contenedor.appendChild(fila);
+            });
+
+            document.getElementById('total-citas').innerText = totalGeneral;
+        }
+
+        // Interceptar envío del formulario para sumar al contador local
+        document.getElementById('citaForm').addEventListener('submit', function(e) {
+            const tiendaSeleccionada = document.getElementById('tiendaSelect').value;
+            
+            if(tiendaSeleccionada) {
+                let datos = obtenerDatosGuardados();
+                datos[tiendaSeleccionada] = (datos[tiendaSeleccionada] || 0) + 1;
+                localStorage.setItem('macropay_citas_dia', JSON.stringify(datos));
+                renderizarConteo();
+            }
+            // El formulario continúa su envío hacia el correo electrónico de forma normal.
+        });
+
+        function reiniciarConteoDiario() {
+            if(confirm("¿Estás seguro de reiniciar los contadores de citas a cero?")) {
+                let datos = {};
+                tiendas.forEach(t => datos[t] = 0);
+                localStorage.setItem('macropay_citas_dia', JSON.stringify(datos));
+                renderizarConteo();
+            }
+        }
+
+        // Inicializar vista al cargar la página
+        renderizarConteo();
+    </script>
+</body>
+</html>
